@@ -1,21 +1,18 @@
 package ACJ.components;
-//what is vao and vbo?
-//ill explain on discord
 
-import java.nio.FloatBuffer;
+import java.nio.IntBuffer;
 
 import org.lwjgl.BufferUtils;
 import org.lwjgl.opengl.GL15;
 
-public class Vbo {
+public class Ebo {
 
     private int id;
-    private int type, stride, drawType, dataType;
-    private FloatBuffer data;
+    private int type, drawType, dataType;
+    private IntBuffer data;
 
-    public Vbo(float[] data, int type, int stride, int drawType, int dataType){
+    public Ebo(int[] data, int type, int drawType, int dataType){
         this.type = type;
-        this.stride = stride;
         this.drawType = drawType;
         this.dataType = dataType;
         setData(data);
@@ -30,7 +27,7 @@ public class Vbo {
         store(this.data);
     }
 
-    public void store(FloatBuffer buffer){
+    public void store(IntBuffer buffer){
         GL15.glBufferData(type, buffer, drawType);
     }
 
@@ -46,7 +43,7 @@ public class Vbo {
         GL15.glDeleteBuffers(id);
     }
 
-    public FloatBuffer getData(){
+    public IntBuffer getData(){
         return data;
     }
 
@@ -56,10 +53,6 @@ public class Vbo {
 
     public int getType(){
         return type;
-    }
-
-    public int getStride(){
-        return stride;
     }
 
     public int getDrawType(){
@@ -76,22 +69,18 @@ public class Vbo {
      * it is useless until I add the add(float[] data) functions
      * @param buffer
      */
-    public void setData(FloatBuffer buffer){
+    public void setData(IntBuffer buffer){
         this.data = buffer;
     }
 
-    public void setData(float[] data){
-        this.data = BufferUtils.createFloatBuffer(data.length);
+    public void setData(int[] data){
+        this.data = BufferUtils.createIntBuffer(data.length);
         this.data.put(data);
         this.data.flip();
     }
 
     public void setType(int type){
         this.type = type;
-    }
-
-    public void setStride(int stride){
-        this.stride = stride;
     }
 
     public void setDrawType(int drawType){
