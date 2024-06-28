@@ -2,8 +2,15 @@ package ACJ;
 
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GLCapabilities;
+
+import ACJ.render.SpriteRenderer;
+
 import static org.lwjgl.glfw.GLFW.*;
 import static org.lwjgl.system.MemoryUtil.*;
+
+import java.util.function.Consumer;
+
+import org.joml.Vector3f;
 import org.lwjgl.glfw.GLFW;
 
 
@@ -17,6 +24,8 @@ public class Window {
     private long address;
     private String title;
     private boolean cursorLocked;
+    private Camera camera;
+    private SpriteRenderer renderer;
 
     public Window(int width, int height, String title){
         this.width = width;
@@ -40,7 +49,7 @@ public class Window {
 		glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL11.GL_TRUE);
         //allows the use of core versions in shader files
 		glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
-		address = glfwCreateWindow(height, width, "WINDOW", NULL, NULL);
+		address = glfwCreateWindow(width, height, "WINDOW", NULL, NULL);
         //check if window was successfully created, if not throw
 		if(address == NULL) {
 			throw new RuntimeException("Failed to create the GLFW window");
@@ -63,16 +72,18 @@ public class Window {
         glfwDestroyWindow(address);
     }
 
-    public void run(){
-        init();
-        customLoop.run();
+    public void run(Runnable action){
+        customLoop.accept(action);
 
     }
     //this should render a black window
-    Runnable customLoop = () -> {
+    Consumer<Runnable> customLoop = (action) -> {
         while(!GLFW.glfwWindowShouldClose(address)){
             //weird stuff
-
+            clear(new Vector3f(0, 1, 1));
+            action.run();
+            camera.move(address);
+            renderer.render(camera);
             updateWindow();
         }
     };
@@ -84,6 +95,20 @@ public class Window {
     public void unlockCursor(){
         cursorLocked = false;
         glfwSetInputMode(address, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
+    }
+
+    public void clear(Vector3f color){
+        GL11.glEnable(GL11.GL_DEPTH_TEST);
+        GL11.glClear(GL11.GL_COLOR_BUFFER_BIT | GL11.GL_DEPTH_BUFFER_BIT);
+        GL11.glClearColor(color.x, color.y, color.z, 1);
+    }
+
+    public void setRenderer(SpriteRenderer renderer){
+        this.renderer = renderer;
+    }
+
+    public void setCamera(Camera camera){
+        this.camera = camera;
     }
     
 }

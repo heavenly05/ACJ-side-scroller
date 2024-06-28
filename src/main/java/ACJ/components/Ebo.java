@@ -17,6 +17,7 @@ public class Ebo {
         this.dataType = dataType;
         setData(data);
         create();
+        store();
     }
 
     private void create(){

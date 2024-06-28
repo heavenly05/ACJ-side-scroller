@@ -1,14 +1,12 @@
 package ACJ.components;
 
 import org.lwjgl.opengl.GL11;
-import org.lwjgl.opengl.GL13;
 import org.lwjgl.opengl.GL15;
+import org.lwjgl.opengl.GL20;
 import org.lwjgl.opengl.GL30;
 
 import java.util.Set;
-import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
 
 public class Vao {
 
@@ -81,6 +79,40 @@ public class Vao {
         vbo.unbind();
         vbos[attrNum] = vbo;
         return vbo;
+    }
+
+    public void enableAttribute(int attrNum){
+        GL20.glEnableVertexAttribArray(attrNum);
+    }
+
+    public void disableAttribute(int attrNum){
+        GL20.glDisableVertexAttribArray(attrNum);
+    }
+
+    public void enableAttributes(){
+        for(int i = 0; i < vbos.length; i++){
+            Vbo vbo = vbos[i];
+            if(vbo != null){
+                enableAttribute(i);
+            }
+        }
+    }
+
+    public void disableAttributes(){
+        for(int i = 0; i < vbos.length; i++){
+            Vbo vbo = vbos[i];
+            if(vbo != null){
+                disableAttribute(i);
+            }
+        }
+    }
+
+    public Ebo getEbo(){
+        return ebo;
+    }
+
+    public int getIndexCount(){
+        return indexCount;
     }
 
     public int[] findStrides(float[]...datas){
