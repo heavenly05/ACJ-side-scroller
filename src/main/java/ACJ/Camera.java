@@ -45,25 +45,4 @@ public class Camera{
     orthographic.setOrtho(left, right, bottom, top, zNear, zFar);
     }
 
-    public void move(long window){
-        if(GLFW.glfwGetKey(window, GLFW.GLFW_KEY_W) == GLFW.GLFW_TRUE){
-            position.add(0, 0, -0.1f);
-        }
-        if(GLFW.glfwGetKey(window, GLFW.GLFW_KEY_S) == GLFW.GLFW_TRUE){
-            position.add(0, 0, 0.1f);
-        }
-        if(GLFW.glfwGetKey(window, GLFW.GLFW_KEY_A) == GLFW.GLFW_TRUE){
-            position.add(0.1f, 0, 0);
-        }
-        if(GLFW.glfwGetKey(window, GLFW.GLFW_KEY_D) == GLFW.GLFW_TRUE){
-            position.add(-0.1f, 0, 0);
-        }
-        if(GLFW.glfwGetKey(window, GLFW.GLFW_KEY_E) == GLFW.GLFW_TRUE){
-            position.add(0, 0.1f, 0);
-        }
-        if(GLFW.glfwGetKey(window, GLFW.GLFW_KEY_Q) == GLFW.GLFW_TRUE){
-            position.add(0, -0.1f, 0);
-        }
-    }
-
 }

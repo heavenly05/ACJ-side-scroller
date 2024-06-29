@@ -3,6 +3,7 @@ package ACJ.shader;
 import org.joml.Matrix4f;
 import org.lwjgl.opengl.GL20;
 
+import ACJ.texture.Texture;
 import ACJ.util.GameFile;
 
 public class BaseShader extends ShaderProgram {
@@ -25,6 +26,10 @@ public class BaseShader extends ShaderProgram {
 
     public void setModel(Matrix4f model){
         vertex.matrix("model").load(model);
+    }
+
+    public void setTexture0(Texture texture){
+        fragment.sampler("texture0").load(texture.getUnit());
     }
     
 }

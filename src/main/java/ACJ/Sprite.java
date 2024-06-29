@@ -23,7 +23,7 @@ public class Sprite {
     public Matrix4f getTransformation(){
         Matrix4f identity = new Matrix4f();
         identity.translate(position);
-        identity.rotate(rotation, 0, 0, 0);
+        identity.rotate(rotation, 0, 0, 1);
         identity.scale(scale.x, scale.y, 0);
         return identity;
     }

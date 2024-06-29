@@ -9,6 +9,13 @@ public class Shapes {
         -0.5f, 0.5f, 0
     };
 
+    public static final float[] SQUARE_TEXTURE_COORDS = new float[] {
+        0, 0,
+        0, 1,
+        1, 1,
+        1, 0
+    };
+
     public static final int[] SQUARE_INDICES = new int[]{
         0, 1, 3, 1, 2, 3
     };

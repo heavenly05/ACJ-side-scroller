@@ -60,7 +60,7 @@ public class ShaderProgram {
     }
 
     public void stop(){
-        GL20.glUseProgram(program);
+        GL20.glUseProgram(0);
     }
 
     public void attach(Shader shader){

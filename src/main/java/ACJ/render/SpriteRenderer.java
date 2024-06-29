@@ -27,6 +27,7 @@ public class SpriteRenderer {
         shader.setView(camera.getTransformation());
         for(TexturedModel texturedModel : sprites.keySet()){
             prepare(texturedModel);
+            shader.setTexture0(texturedModel.getTexture());
             for(Sprite sprite : sprites.get(texturedModel)){
                 shader.setModel(sprite.getTransformation());
                 texturedModel.render();

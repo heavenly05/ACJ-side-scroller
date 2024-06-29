@@ -12,11 +12,12 @@ public class TexturedModel extends Model {
 
     public void bind(){
         super.bind();
-        
+        texture.bind();
     }
 
     public void unbind(){
         super.unbind();
+        texture.unbind();
     }
 
     public Texture getTexture(){

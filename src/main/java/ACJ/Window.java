@@ -3,7 +3,7 @@ package ACJ;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GLCapabilities;
 
-import ACJ.render.SpriteRenderer;
+import ACJ.render.FinalRenderer;
 
 import static org.lwjgl.glfw.GLFW.*;
 import static org.lwjgl.system.MemoryUtil.*;
@@ -24,8 +24,6 @@ public class Window {
     private long address;
     private String title;
     private boolean cursorLocked;
-    private Camera camera;
-    private SpriteRenderer renderer;
 
     public Window(int width, int height, String title){
         this.width = width;
@@ -82,8 +80,6 @@ public class Window {
             //weird stuff
             clear(new Vector3f(0, 1, 1));
             action.run();
-            camera.move(address);
-            renderer.render(camera);
             updateWindow();
         }
     };
@@ -97,18 +93,14 @@ public class Window {
         glfwSetInputMode(address, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
     }
 
+    public long getAddress(){
+        return address;
+    }
+
     public void clear(Vector3f color){
         GL11.glEnable(GL11.GL_DEPTH_TEST);
         GL11.glClear(GL11.GL_COLOR_BUFFER_BIT | GL11.GL_DEPTH_BUFFER_BIT);
         GL11.glClearColor(color.x, color.y, color.z, 1);
-    }
-
-    public void setRenderer(SpriteRenderer renderer){
-        this.renderer = renderer;
-    }
-
-    public void setCamera(Camera camera){
-        this.camera = camera;
     }
     
 }
